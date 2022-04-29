@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <style>
+        *{margin: 0;padding: 0;list-style: none;}
+
+        :root{
+            --spacing:10px;
+            --blur:10px;
+            --color:#ffc600;
+        }
+
+        body{
+            background-color: #193549;
+        }
+        .title-wrap{
+            margin-top:50px ;
+            color: #fff;
+            text-align: center;
+            font-size: 50px;
+            font-weight: 100;
+        }
+        .controls{
+            margin-top: 50px;
+            margin-bottom: 50px;
+            text-align: center;
+            color: #fff;
+            font-size: 50px;
+            font-weight: 100;
+        }
+        input{
+            width: 100px;
+        }
+        .img{
+            text-align: center;
+        }
+        .img img{
+            background: var(--color);
+            padding: var(--spacing);
+            filter: blur(var(--blur));
+        }
+        .JS{
+            color: var(--color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="title-wrap">
+        <h2>Update CSS Variables with <span class="JS">JS</span></h2>
+    </div>
+    <div class="controls">
+        <label for="spacing">Spacing</label>
+        <input type="range" name="spacing" id="spacing" min="10" max="200" value="10" data-sizing="px">
+
+        <label for="blur">Blur</label>
+        <input type="range" name="blur" id="blur" min="0" max="25" value="10" dtat-sizing="px">
+
+        <label for="color">Color</label>
+        <input type="color" id="color" name="color" value="#ffc600">
+    </div>
+
+    <div class="img">
+        <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" alt="">
+    </div>
+
+    <script>
+        // 搜尋有(".controls input")的element
+        let inputs = document.querySelectorAll(".controls input");
+        // 針對input建立事件
+        inputs.forEach(function(input){
+            input.addEventListener("change",changeVar)
+            input.addEventListener("mousemove",changeVar)
+        });
+        
+        function changeVar(){
+            // dataset.sizing ||"" = data屬性有sizing ||或者 ""是空的
+            let unit = this.dataset.sizing || "";
+            
+            document.documentElement.style.setProperty(`--${this.name}`,this.value + unit)
+        };
+
+        // --------------------------------------------------------------
+
+        // // 取得要做事的對象
+        // let padding = document.querySelector("#spacing")
+        // let filter = document.querySelector("#blur")
+        // let background = document.querySelector("#color")
+        // // 把這些對象加入觸發事件
+        // padding.addEventListener("input",changpadding)
+        // filter.addEventListener("input",changblur)
+        // background.addEventListener("input",changcolor)
+        // // even 參數 = 被觸發的那個人,
+        // function changpadding(even){
+        //     // newpadding = 參數.本身.值
+        //     let newpadding = even.target.value;
+        //     // DOM.dom屬性.style.改變屬性的值("屬性名","值")
+        //     document.documentElement.style.setProperty("--spacing",`${newpadding}px`)
+        // }
+        // function changblur(even){
+        //     let newblur = even.target.value;
+        //     document.documentElement.style.setProperty("--blur",`${newblur}px`)
+        // }
+        // function changcolor(even){
+        //     let newcolor = even.target.value;
+        //     document.documentElement.style.setProperty("--color",`${newcolor}`)
+        // }
+    </script>
+    
+</body>
+</html>
