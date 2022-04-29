@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript30-01</title>
+    <style>
+        *{margin: 0;padding: 0;list-style: none;}
+        body{
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: url(https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/background.jpg);
+        }
+        .wrap{
+            width: 90%;
+            margin: auto;
+            display: flex;
+            justify-content:center;
+        }
+        .item{
+            width: 120px;
+            height: 80px;
+            border: 5px solid #000;
+            background-color: rgba(000,000,000,.6);
+            margin: 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: .07s;
+        }
+        .playing{
+            transform: scale(1.1);
+            border-color: #f00;
+            box-shadow: 0 0 3px #f00;
+        }
+
+        .item h3{
+            font-size: 30px;
+            font-weight: 900;
+            color: #fff;
+            text-align: center;
+        }
+        .item p{
+            text-align: center;
+            color: #fa0;
+            font-size: 10px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div data-key="65" class="item">
+            <h3>A</h3>
+            <p>CLAP</p>
+        </div>
+        <div data-key="83" class="item">
+            <h3>S</h3>
+            <p>HIHAT</p>
+        </div>
+        <div data-key="68" class="item">
+            <h3>D</h3>
+            <p>KICK</p>
+        </div>
+        <div data-key="70" class="item">
+            <h3>F</h3>
+            <p>OPENHAT</p>
+        </div>
+        <div data-key="71" class="item">
+            <h3>G</h3>
+            <p>BOOM</p>
+        </div>
+        <div data-key="72" class="item">
+            <h3>H</h3>
+            <p>RIDE</p>
+        </div>
+        <div data-key="74" class="item">
+            <h3>J</h3>
+            <p>SNARE</p>
+        </div>
+        <div data-key="75" class="item">
+            <h3>K</h3>
+            <p>TOM</p>
+        </div>
+        <div data-key="76" class="item">
+            <h3>L</h3>
+            <p>TINK</p>
+        </div>
+    </div>
+
+    <div class="audio">
+        <audio data-key="65" src="音效檔for-01\yisell_sound_2008030716594273420_88011.mp3"></audio>
+        <audio data-key="83" src="音效檔for-01\yisell_sound_2008030717003054413_88011.mp3"></audio>
+        <audio data-key="68" src="音效檔for-01\yisell_sound_2008030717010052106_88011.mp3"></audio>
+        <audio data-key="70" src="音效檔for-01\yisell_sound_2008040716072975469_88011.mp3"></audio>
+        <audio data-key="71" src="音效檔for-01\yisell_sound_2008040716085147278_88011.mp3"></audio>
+        <audio data-key="72" src="音效檔for-01\yisell_sound_2008040716093176063_88011.mp3"></audio>
+        <audio data-key="74" src="音效檔for-01\yisell_sound_2014072514024460169_66366.mp3"></audio>
+        <audio data-key="75" src="音效檔for-01\yisell_sound_2014072514281019807_66366.mp3"></audio>
+        <audio data-key="76" src="音效檔for-01\yisell_sound_2014080415461763203_66366.mp3"></audio>
+    </div>
+    
+    <script>
+        window.addEventListener("keydown", playmusic)
+        window.addEventListener("transitionend" , removeplaying)
+
+
+        function playmusic(a){   //因為是keydown事件,a 對應到按下的按鍵
+            //搜尋div裡屬性[data-key=${按鍵.keyCode}]
+            let key = document.querySelector(`div[data-key="${a.keyCode}"]`);
+            let music = document.querySelector(`audio[data-key="${a.keyCode}"]`);
+            if(key){
+                key.classList.add("playing");
+                music.currentTime=0;  //可理解為最短結束時間為0秒,才不用等播完才能執行下一次
+                music.play();
+            }
+        }
+
+        function removeplaying(a){
+            if(a.propertyName==="transform"){
+                a.target.classList.remove("playing")
+            }
+        }
+
+    </script>      
+</body>
+</html>
