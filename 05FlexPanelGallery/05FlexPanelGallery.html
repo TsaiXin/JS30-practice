@@ -74,10 +74,8 @@
       font-size: 2em;
     }
     
-    .active :first-child{transform: translateY(-100%);}
-    /* .active :first-child{transform: translateY(0);} */
-    .active :last-child{transform: translateY(100%);}
-    /* .active :last-child{transform: translateY(0);} */
+    .active :first-child{transform: translateY(-100%);} /*讓第一個子層動作*/
+    .active :last-child{transform: translateY(100%);}  /*讓最後一個子層動作*/
 
     .panel p:nth-child(2) {
       font-size: 4em;
@@ -92,7 +90,7 @@
 
 
   <div class="panels">
-    <div class="panel panel1 active">
+    <div class="panel panel1 active">  <!--加入一個.active-->
       <p>Hey</p>
       <p>Let's</p>
       <p>Dance</p>
@@ -123,14 +121,14 @@
 
     let panel = document.querySelectorAll(".panel")   //先找到有".panel"的目標
     
-    panel.forEach( a => a.addEventListener("click" , open))
-    panel.forEach( a => a.addEventListener("transitionend" , active))
-    
+    panel.forEach( a => a.addEventListener("click" , open))  //逐一把目標建立事件
+    panel.forEach( a => a.addEventListener("transitionend" , active))  //因為分成兩段動畫,第二段監聽"transitionend"
+
     function open (){
-      this.classList.toggle("open")
+      this.classList.toggle("open")  //toggle 交換
     }
     function active(e){
-      if(e.propertyName.includes("flex")){
+      if(e.propertyName.includes("flex")){  //挑一個propertyName來監聽
         this.classList.toggle("active")
       }
     }
