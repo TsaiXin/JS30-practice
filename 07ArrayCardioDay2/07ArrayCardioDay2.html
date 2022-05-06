@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio 💪💪</title>
+</head>
+<body>
+  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <script>
+    // ## Array Cardio Day 2
+
+    const people = [
+      { name: 'Wes', year: 1988 },
+      { name: 'Kait', year: 1986 },
+      { name: 'Irv', year: 1970 },
+      { name: 'Lux', year: 2015 }
+    ];
+
+    const comments = [
+      { text: 'Love this!', id: 523423 },
+      { text: 'Super good', id: 823423 },
+      { text: 'You are the best', id: 2039842 },
+      { text: 'Ramen is my fav food ever', id: 123523 },
+      { text: 'Nice Nice Nice!', id: 542328 }
+    ];
+
+    // Some and Every Checks
+    // Array.prototype.some() // is at least one person 19 or older?
+        //.some()回傳 t or f 只要有一筆成立就回傳ture
+        let ans1 = people.some( a => new Date().getUTCFullYear() - a.year >= 19)
+        console.log(ans1)
+
+        // Array.prototype.every() // is everyone 19 or older?
+        //.ever()回傳 t or f 要全都成立才回傳tury
+        let ans2 = people.every( a => new Date().getUTCFullYear() - a.year >= 19)
+        console.log(ans2)
+
+    // Array.prototype.find()
+    // Find is like filter, but instead returns just the one you are looking for
+    // find the comment with the ID of 823423
+        // .find() 回傳對應的 整筆 資料  *只找到第一筆就停*
+        let ans3 = comments.find( a => a.id === 823423)
+        console.log(ans3)
+
+    // Array.prototype.findIndex()
+        //.findIndex() 回傳在陣列中的第幾個位置 -1等於沒找到 *只找到第一筆就停*
+        let ans4 = comments.findIndex( a => a.id ===823423)
+        console.log(ans4)
+
+    // Find the comment with this ID
+    // delete the comment with the ID of 823423
+        
+        //slice( 開始位置 , 結束位置 沒寫就到底) 抓取 
+        let a = comments.slice(0 , ans4);
+        let b =comments.slice(ans4+1);
+        let ans5 = [ ...a , ...b]
+        // let ans5 = [...comments.slice(0 , ans4) , ...comments.slice(ans4 + 1)]  //寫一起的寫法
+        console.log(ans5)
+
+        //.splice( 資料位置 , 刪除幾個 , 加入資料(位置之前))  
+        // comments.splice(findindex , 0 , 123)
+        let ans6 = comments.splice(ans4 , 1)
+        console.log(comments)
+        
+  </script>
+</body>
+</html>
