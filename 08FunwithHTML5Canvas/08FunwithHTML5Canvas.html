@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 Canvas</title>
+</head>
+
+<body>
+    <canvas id="draw" width="800" height="800"></canvas>
+    <script>
+    </script>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+        }
+
+        #draw {
+            border: 1px solid #000;
+        }
+    </style>
+
+</body>
+<script>
+
+    let canvas = document.querySelector("#draw")
+    let ctx = canvas.getContext("2d"); //
+    //  ctx.strokeStyle = "#BADA55";  //畫的顏色
+    ctx.lineJoin = "round";  //線條轉角的樣式
+    ctx.lineCap = "round";  //線條頭尾的樣式
+    ctx.lineWidth = 80; //線條的粗細
+
+    let drawing = false;  //預設畫筆還沒閞始
+    let x = 0;  //建立原始坐標  
+    let y = 0;
+    let colorDeg = 0;
+    let direction = true;
+
+
+    canvas.addEventListener("mousedown", (e) => {
+        drawing = true;
+        [x, y] = [e.offsetX, e.offsetY]; // offsetX 可以抓到X軸的坐標
+    });                                    // 當滑鼠點下去時取得坐標(啟始)
+    canvas.addEventListener("mousemove", (e) => {
+        if (!drawing) return;
+        console.log(drawing)
+        // console.log(e)
+
+        ctx.beginPath(); //閞始()
+        ctx.strokeStyle = `hsl(${colorDeg} , 100% , 50%)`;
+        ctx.moveTo(x, y); //先移動到這個坐標(點下去時被定義的)
+        ctx.lineTo(e.offsetX, e.offsetY); //再移到這裡的e取得的坐標
+        ctx.stroke(); //畫()
+        [x, y] = [e.offsetX, e.offsetY];
+
+        if (colorDeg <= 360) {  //顏色角度超過 360 時歸 0
+            colorDeg++;
+        }
+        else {
+            colorDeg = 0;
+        }
+
+        if (ctx.lineWidth >= 80 || ctx.lineWidth <=10) {  //超過80或低於10
+            direction = !direction;  //direction = 反過來的true 或 false
+        }
+        if (direction) {
+            ctx.lineWidth++;
+        }
+        else {
+            ctx.lineWidth--;
+        }
+    });
+    canvas.addEventListener("mouseup", () => {
+        drawing = false;
+    });
+    canvas.addEventListener("mouseleave", () => {
+        drawing = false;
+    });
+
+</script>
+
+</html>

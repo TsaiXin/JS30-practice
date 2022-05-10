@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>HTML5 Canvas</title>
+    </head>
+
+    <body>
+        <canvas id="draw" width="800" height="800"></canvas>
+        <script>
+        </script>
+
+        <style>
+            html,
+            body {
+                margin: 0;
+            }
+
+            #draw {
+                border: 1px solid #000;
+            }
+        </style>
+
+        <script>
+            let canvas = document.querySelector('#draw');
+            let ctx = canvas.getContext('2d');
+            ctx.lineWidth = 80;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+
+
+            let drawing = false;
+            let x = 0 , y = 0;
+            let colorDeg = 0;
+            let direction = true;
+            console.log(x,y)
+
+
+            canvas.addEventListener('mousedown' , (e) => {
+                drawing = true;
+                [x , y] = [e.offsetX , e.offsetY]
+            });
+            canvas.addEventListener('mousemove' , (a) => {
+                if (!drawing) return;
+
+                ctx.beginPath();
+                ctx.moveTo(x , y);
+                ctx.lineTo(a.offsetX , a.offsetY);
+                [x , y] = [a.offsetX , a.offsetY];
+                ctx.strokeStyle = `hsl(${colorDeg}, 100%, 50%)`
+                ctx.stroke();
+            
+                colorDeg++;
+                if (colorDeg >=360){
+                    colorDeg = 0;
+                };
+                if (ctx.lineWidth >= 80 || ctx.lineWidth <= 10){
+                    direction = !direction;
+                };
+                if (direction){
+                    ctx.lineWidth++
+                }
+                else {
+                    ctx.lineWidth--
+                };
+
+            });
+            canvas.addEventListener('mouseup' , () => {drawing = false;});
+            canvas.addEventListener('mouseleave' , () => {drawing = false;});
+        </script>
+    </body>
+
+</html>
+<br>
+1: 取得canvas (標籤)<br>
+2: 建立事件 ~ mousedown , mousemove , mouseup , mouseleave <br>
+3: 用drawing 的 true,false 來判斷畫筆的執行時間 <br>
+4: 針對 canvas.getContext('2d') 做基本設定 ~ lineJoin, lineCap, lineWidth, strokeStyle <br>
+5: .beginPath() 宣告要畫 <br>
+6: let 原始坐標 x , y <br>
+7: 讓坐標"移"到新的坐標才能連成線 .moveTo, .lineTo <br>
+8: 開始畫 = .stroke() <br>
+9: 顏色漸變 = 色環360度 colorDeg++ 大於360就歸0 <br>
+10: 粗細漸變 = 利用true, false 判斷 ++ 或 -- <br>
