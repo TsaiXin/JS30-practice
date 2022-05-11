@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>09DevToolsDomination</title>
+    </head>
+
+    <body>
+
+        <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+        <script>
+            const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+            function makeGreen() {
+                const p = document.querySelector('p');
+                p.style.color = '#BADA55';
+                p.style.fontSize = '50px';
+            }
+
+        // Regular
+            console.log("123" , dogs)
+        // Interpolated
+            console.log('hello i am a %s string!' , 'man')
+        // Styled
+            console.log('%c不要動' , 'font-size: 50px; color: red; background-color: #00f; padding: 10px;')
+        // warning!
+            console.warn('oh my god~~')
+        // Error :|
+            console.error('請小心,會爆炸')
+        // Info
+            console.info('這個跟.log 真的太像', dogs)
+        // Testing
+            let p = document.querySelector('p')
+
+            console.assert(true , "沒事")
+            console.assert(false , "有事")
+            console.assert("" , "有事")
+            console.assert( NaN , "有事")
+            console.assert( null , "有事")
+            console.assert( undefined , "有事")
+        // clearing
+            console.clear()
+
+        // Viewing DOM Elements
+            console.log(p)
+            console.dir(p)
+
+        // Grouping together
+            console.table(dogs , ['name'])
+            dogs.forEach( a => {
+                console.groupCollapsed(`${a.name}`);
+                console.log('hello i am', `${a.name}`);
+                console.log('i am', `${a.age}`, 'years old');
+                console.log('just', `${a.age *7}`, 'dog years old')
+                console.groupEnd(`${a.name}`)
+            });
+
+        // counting
+            console.groupCollapsed('count')
+                console.count('Wes');
+                console.count('Wes');
+                console.count('Steve');
+                console.count('Steve');
+                console.count('Wes');
+                console.count('Steve');
+                console.count('Wes');
+                console.count('Steve');
+                console.count('Steve');
+                console.count('Steve');
+                console.count('Steve');
+                console.count('Steve');
+            console.groupEnd('count')
+        // timing
+        console.time('for');
+            for(let i=0 ; i <= 1000000 ; i++){
+                let j = i ;
+            }
+        console.timeEnd('for');
+        console.time('for2');
+            for(let i=0 ; i <= 1000 ; i++){
+                let j = i ;
+            }
+        console.timeEnd('for2');
+            
+        </script>
+    </body>
+
+</html>
